@@ -58,7 +58,9 @@
 <div class="hidden md:flex gap-8">
 <a href="#hero" class="text-white/70 hover:text-white transition-colors">Home</a>
 <a href="#features" class="text-white/70 hover:text-white transition-colors">Features</a>
+<a href="#setup-guide" class="text-white/70 hover:text-white transition-colors">Setup</a>
 <a href="#commands" class="text-white/70 hover:text-white transition-colors">Commands</a>
+<a href="#faq" class="text-white/70 hover:text-white transition-colors">FAQ</a>
 <a href="#gallery" class="text-white/70 hover:text-white transition-colors">Gallery</a>
 </div>
 <div class="md:hidden"><button onclick="toggleMobileMenu()" class="text-white p-2"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path class="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></button></div>
@@ -67,7 +69,9 @@
 <div id="mobileMenu" class="hidden md:hidden"><div class="px-2 pt-2 pb-3 space-y-1 bg-black/50 rounded-lg mt-2">
 <a href="#hero" class="block px-3 py-2 text-white/70 hover:text-white transition-colors">Home</a>
 <a href="#features" class="block px-3 py-2 text-white/70 hover:text-white transition-colors">Features</a>
+<a href="#setup-guide" class="block px-3 py-2 text-white/70 hover:text-white transition-colors">Setup</a>
 <a href="#commands" class="block px-3 py-2 text-white/70 hover:text-white transition-colors">Commands</a>
+<a href="#faq" class="block px-3 py-2 text-white/70 hover:text-white transition-colors">FAQ</a>
 <a href="#gallery" class="block px-3 py-2 text-white/70 hover:text-white transition-colors">Gallery</a>
 <a href="https://discord.com/oauth2/authorize?client_id=1476015649775157369" class="block px-3 py-2 text-white/70 hover:text-white transition-colors">Add to Discord</a>
 </div></div>
@@ -99,10 +103,43 @@
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 <div class="feature-card p-8 rounded-2xl"><div class="w-14 h-14 gradient-bg rounded-xl mb-6 flex items-center justify-center text-2xl">📝</div><h3 class="text-2xl font-bold mb-4">Automatic Diary Posting</h3><p class="text-white/70">Auto-tracks Serializd users in your server. Posts new diary entries to your designated channel within 10 minutes. Beautiful embeds with show artwork, ratings, and episode details.</p></div>
 <div class="feature-card p-8 rounded-2xl"><div class="w-14 h-14 gradient-bg rounded-xl mb-6 flex items-center justify-center text-2xl">🔍</div><h3 class="text-2xl font-bold mb-4">Interactive Profile Browser</h3><p class="text-white/70">Browse any user's Serializd profile directly in Discord. View: Recently Logged, Currently Watching, Watchlist, Dropped, Paused. Pagination and sorting options.</p></div>
-<div class="feature-card p-8 rounded-2xl"><div class="w-14 h-14 gradient-bg rounded-xl mb-6 flex items-center justify-center text-2xl">📊</div><h3 class="text-2xl font-bold mb-4">Statistics & Analytics</h3><p class="text-white/70">Server stats - see what your community is watching. Global stats - discover trending shows across all servers. Anonymous mode available.</p></div>
+<div class="feature-card p-8 rounded-2xl"><div class="w-14 h-14 gradient-bg rounded-xl mb-6 flex items-center justify-center text-2xl">📊</div><h3 class="text-2xl font-bold mb-4">Global Statistics & Top 20 Leaderboards</h3><p class="text-white/70">Server stats - see what your community is watching. Global stats with Top 20 leaderboards for watchers, guilds, and trending shows across all servers. Anonymous mode available.</p></div>
+<div class="feature-card p-8 rounded-2xl"><div class="w-14 h-14 gradient-bg rounded-xl mb-6 flex items-center justify-center text-2xl">📦</div><h3 class="text-2xl font-bold mb-4">Group Diary for Binges</h3><p class="text-white/70">Automatically groups multiple episodes into one clean embed when you binge-watch shows. Configurable time window and customizable formatting.</p></div>
+<div class="feature-card p-8 rounded-2xl"><div class="w-14 h-14 gradient-bg rounded-xl mb-6 flex items-center justify-center text-2xl">🔔</div><h3 class="text-2xl font-bold mb-4">Episode Alerts & Upcoming</h3><p class="text-white/70">Get notified about upcoming episodes for shows you're tracking. Never miss a new episode of your favorite shows.</p></div>
+<div class="feature-card p-8 rounded-2xl"><div class="w-14 h-14 gradient-bg rounded-xl mb-6 flex items-center justify-center text-2xl">🎨</div><h3 class="text-2xl font-bold mb-4">Fully Customizable Embeds</h3><p class="text-white/70">Custom embed colors to match your server's theme. Toggle field visibility, rename labels, configure formatting, and set thumbnail priorities.</p></div>
 <div class="feature-card p-8 rounded-2xl"><div class="w-14 h-14 gradient-bg rounded-xl mb-6 flex items-center justify-center text-2xl">🚀</div><h3 class="text-2xl font-bold mb-4">Interactive Setup Wizard</h3><p class="text-white/70">New /setup command guides you through configuration step-by-step. Configure channels, users, and customization in 2-3 minutes.</p></div>
-<div class="feature-card p-8 rounded-2xl"><div class="w-14 h-14 gradient-bg rounded-xl mb-6 flex items-center justify-center text-2xl">🔗</div><h3 class="text-2xl font-bold mb-4">Username Linking System</h3><p class="text-white/70">Connect your Discord account to your Serializd profile with /username. Per-server connections.</p></div>
-<div class="feature-card p-8 rounded-2xl"><div class="w-14 h-14 gradient-bg rounded-xl mb-6 flex items-center justify-center text-2xl">🎨</div><h3 class="text-2xl font-bold mb-4">Customization Options</h3><p class="text-white/70">Custom embed colors - match your server's theme. Toggle visibility of fields and rename labels.</p></div>
+<div class="feature-card p-8 rounded-2xl"><div class="w-14 h-14 gradient-bg rounded-xl mb-6 flex items-center justify-center text-2xl">🔗</div><h3 class="text-2xl font-bold mb-4">Username Linking System</h3><p class="text-white/70">Connect your Discord account to your Serializd profile with /username. Per-server connections for privacy.</p></div>
+<div class="feature-card p-8 rounded-2xl"><div class="w-14 h-14 gradient-bg rounded-xl mb-6 flex items-center justify-center text-2xl">⚡</div><h3 class="text-2xl font-bold mb-4">Smart Auto-Recheck</h3><p class="text-white/70">Invalid users automatically rechecked every 24 hours. Stale entries (7+ days old) filtered automatically to keep your feed fresh.</p></div>
+</div>
+</div>
+</section>
+
+<section id="setup-guide" class="py-32 relative">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-16"><h2 class="text-5xl font-bold mb-4">Quick Setup Guide</h2><p class="text-xl text-white/70">Get started in 3 simple steps</p></div>
+<div class="space-y-8">
+<div class="feature-card p-8 rounded-2xl flex gap-6 items-start">
+<div class="w-16 h-16 gradient-bg rounded-xl flex items-center justify-center text-3xl font-bold flex-shrink-0">1</div>
+<div class="flex-1">
+<h3 class="text-2xl font-bold mb-3">Add Bot to Your Server</h3>
+<p class="text-white/70 mb-4">Click the button below to invite the bot to your Discord server. Make sure you have administrator permissions.</p>
+<a href="https://discord.com/oauth2/authorize?client_id=1476015649775157369" target="_blank" class="inline-flex items-center gradient-bg px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">Add to Discord →</a>
+</div>
+</div>
+<div class="feature-card p-8 rounded-2xl flex gap-6 items-start">
+<div class="w-16 h-16 gradient-bg rounded-xl flex items-center justify-center text-3xl font-bold flex-shrink-0">2</div>
+<div class="flex-1">
+<h3 class="text-2xl font-bold mb-3">Run Setup Wizard</h3>
+<p class="text-white/70">Type <code class="px-2 py-1 bg-white/10 rounded">/setup</code> in your server to launch the interactive setup wizard. It will guide you through configuring the bot step-by-step.</p>
+</div>
+</div>
+<div class="feature-card p-8 rounded-2xl flex gap-6 items-start">
+<div class="w-16 h-16 gradient-bg rounded-xl flex items-center justify-center text-3xl font-bold flex-shrink-0">3</div>
+<div class="flex-1">
+<h3 class="text-2xl font-bold mb-3">Add Users to Track</h3>
+<p class="text-white/70">Use <code class="px-2 py-1 bg-white/10 rounded">/adduser [username]</code> to start tracking Serializd users. The bot will automatically post their diary entries to your designated channel!</p>
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -111,6 +148,75 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="text-center mb-20"><h2 class="text-5xl font-bold mb-4">Commands</h2><p class="text-xl text-white/70">Explore all available bot commands</p></div>
 <div class="space-y-6" id="commands-container"></div>
+</div>
+</section>
+
+<section id="faq" class="py-32 relative bg-gradient-to-b from-black/50 to-black">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-16"><h2 class="text-5xl font-bold mb-4">Frequently Asked Questions</h2><p class="text-xl text-white/70">Need help? We've got you covered</p></div>
+<div class="space-y-6">
+<div class="bg-white/5 rounded-2xl border border-white/10">
+<button class="w-full px-8 py-6 flex justify-between items-center text-2xl font-semibold" onclick="toggleFAQ('faq1')">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 gradient-bg rounded-lg flex items-center justify-center">❓</div>
+<span class="text-left">I have an issue, how can I get help?</span>
+</div>
+<svg class="w-6 h-6 transform transition-transform" id="faq1-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+</svg>
+</button>
+<div class="hidden px-8 pb-6" id="faq1-content">
+<p class="text-white/70 mb-4">Join our Discord server for support from the community and developers:</p>
+<a href="https://discord.gg/hmrHbWCpcP" target="_blank" class="inline-flex items-center gradient-bg px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">Join Discord Server →</a>
+</div>
+</div>
+<div class="bg-white/5 rounded-2xl border border-white/10">
+<button class="w-full px-8 py-6 flex justify-between items-center text-2xl font-semibold" onclick="toggleFAQ('faq2')">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 gradient-bg rounded-lg flex items-center justify-center">💬</div>
+<span class="text-left">I have some feedback</span>
+</div>
+<svg class="w-6 h-6 transform transition-transform" id="faq2-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+</svg>
+</button>
+<div class="hidden px-8 pb-6" id="faq2-content">
+<p class="text-white/70 mb-4">We'd love to hear your thoughts! Share your feedback in our Discord:</p>
+<a href="https://discord.gg/hmrHbWCpcP" target="_blank" class="inline-flex items-center gradient-bg px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">Join Discord Server →</a>
+</div>
+</div>
+<div class="bg-white/5 rounded-2xl border border-white/10">
+<button class="w-full px-8 py-6 flex justify-between items-center text-2xl font-semibold" onclick="toggleFAQ('faq3')">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 gradient-bg rounded-lg flex items-center justify-center">💡</div>
+<span class="text-left">I have a suggestion</span>
+</div>
+<svg class="w-6 h-6 transform transition-transform" id="faq3-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+</svg>
+</button>
+<div class="hidden px-8 pb-6" id="faq3-content">
+<p class="text-white/70 mb-4">Got ideas for new features? Let us know in our Discord server:</p>
+<a href="https://discord.gg/hmrHbWCpcP" target="_blank" class="inline-flex items-center gradient-bg px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">Join Discord Server →</a>
+</div>
+</div>
+<div class="bg-white/5 rounded-2xl border border-white/10">
+<button class="w-full px-8 py-6 flex justify-between items-center text-2xl font-semibold" onclick="toggleFAQ('faq4')">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 gradient-bg rounded-lg flex items-center justify-center">🔧</div>
+<span class="text-left">My diary isn't tracking my user</span>
+</div>
+<svg class="w-6 h-6 transform transition-transform" id="faq4-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+</svg>
+</button>
+<div class="hidden px-8 pb-6" id="faq4-content">
+<p class="text-white/70 mb-4">Make sure you've correctly typed the username. You can check which users are added with <code class="px-2 py-1 bg-white/10 rounded">/listusers</code>.</p>
+<p class="text-white/70 mb-4">Still not working? Join our Discord for personalized support:</p>
+<a href="https://discord.gg/hmrHbWCpcP" target="_blank" class="inline-flex items-center gradient-bg px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">Join Discord Server →</a>
+</div>
+</div>
+</div>
 </div>
 </section>
 
@@ -199,12 +305,13 @@
 
 <script>
 const commandsData = {
-  setup: { icon: "🛠️", title: "Setup & Configuration", commands: [{name: "/setup", description: "Interactive setup wizard for initial configuration", permission: "Admin"},{name: "/setchannel", description: "Set channel for specific bot features", permission: "Admin"},{name: "/setcolor", description: "Set custom embed color for this server", permission: "Admin"},{name: "/settings", description: "Open bot configuration menu", permission: "Admin"},{name: "/admininfo", description: "View server configuration and settings", permission: "Admin"},{name: "/diaryfields", description: "Configure which fields show in diary entries", permission: "Admin"},{name: "/diaryformat", description: "Configure diary formatting and visual settings", permission: "Admin"},{name: "/groupdiary", description: "Configure group diary mode and timing", permission: "Admin"},{name: "/groupfields", description: "Configure which fields show in group diary embeds", permission: "Admin"},{name: "/groupformat", description: "Configure group diary formatting and visual settings", permission: "Admin"},{name: "/authorformat", description: "Change author line format", permission: "Admin"},{name: "/thumbnail", description: "Change thumbnail priority for diary entries", permission: "Admin"},{name: "/timestampformat", description: "Change how the logged date appears", permission: "Admin"},{name: "/watchfilter", description: "Filter which entries to post", permission: "Admin"},{name: "/setanonymous", description: "Toggle guild anonymity in global stats", permission: "Admin"},{name: "/setdiscordlink", description: "Set Discord invite link for global stats", permission: "Admin"},{name: "/pingrole", description: "Set role to ping on new diary entries", permission: "Admin"}]},
-  tracking: { icon: "👥", title: "User Tracking", commands: [{name: "/adduser", description: "Add one or more Serializd users to track", permission: "Admin"},{name: "/removeuser", description: "Remove a tracked Serializd user", permission: "Admin"},{name: "/listusers", description: "Show all tracked users", permission: "Admin"},{name: "/testuser", description: "Test if API can fetch a user's diary", permission: "Admin"},{name: "/clearallusers", description: "Remove ALL tracked users from this server", permission: "Admin"}]},
-  browsing_community: { icon: "🔍", title: "Browsing, Stats & Community", commands: [{name: "/profile", description: "View a user's Serializd profile with interactive navigation", permission: "All"},{name: "/stats", description: "View server and global statistics", permission: "All"},{name: "/username", description: "Connect your Discord account to your Serializd username", permission: "All"},{name: "/sharelink", description: "Submit your Serializd and Letterboxd profile links", permission: "All"},{name: "/upcoming", description: "View upcoming episodes for tracked shows", permission: "All"},{name: "/serializd", description: "Learn about Serializd - TV tracking platform", permission: "All"}]},
+  setup: { icon: "🛠️", title: "Setup & Configuration", commands: [{name: "/setup", description: "Interactive setup wizard for initial configuration", permission: "Admin"},{name: "/setchannel", description: "Set channel for diary posts", permission: "Admin"},{name: "/setcolor", description: "Set custom embed color for this server", permission: "Admin"},{name: "/admininfo", description: "View server configuration and settings overview", permission: "Admin"}]},
+  settings_menu: { icon: "⚙️", title: "Settings Menu Options", commands: [{name: "/settings", description: "Interactive settings menu - Configure diary, group diary, channels, and customization", permission: "Admin"},{name: "/diaryfields", description: "Toggle which fields show in diary entries & configure watch filter", permission: "Admin"},{name: "/diaryformat", description: "Configure thumbnail, timestamp, author format, and role ping", permission: "Admin"},{name: "/thumbnail", description: "Set thumbnail priority: default, season_show, show_only, serializd_only", permission: "Admin"},{name: "/timestampformat", description: "Change how the logged date appears in entries", permission: "Admin"},{name: "/authorformat", description: "Change author line format in diary embeds", permission: "Admin"},{name: "/watchfilter", description: "Filter which entries to post (first watches, rewatches, etc)", permission: "Admin"},{name: "/pingrole", description: "Set role to ping on new diary entries", permission: "Admin"},{name: "/groupdiary", description: "Configure group diary mode and timing for binge sessions", permission: "Admin"},{name: "/groupfields", description: "Toggle which fields show in group diary embeds", permission: "Admin"},{name: "/groupformat", description: "Configure group diary title, author, thumbnail, and review links", permission: "Admin"},{name: "/setanonymous", description: "Hide your guild from /stats global rankings", permission: "Admin"},{name: "/setdiscordlink", description: "Set Discord invite link to display in global stats", permission: "Admin"}]},
+  tracking: { icon: "👥", title: "User Tracking", commands: [{name: "/adduser", description: "Add one or more Serializd users to track", permission: "Admin"},{name: "/removeuser", description: "Remove a tracked Serializd user", permission: "Admin"},{name: "/listusers", description: "Show all tracked users in this server", permission: "Admin"},{name: "/testuser", description: "Test if API can fetch a user's diary", permission: "Admin"},{name: "/clearallusers", description: "Remove ALL tracked users from this server", permission: "Admin"}]},
+  browsing_community: { icon: "🔍", title: "Browsing, Stats & Community", commands: [{name: "/profile", description: "View a user's Serializd profile with interactive navigation", permission: "All"},{name: "/stats", description: "View server and global statistics with Top 20 leaderboards", permission: "All"},{name: "/username", description: "Connect your Discord account to your Serializd username", permission: "All"},{name: "/sharelink", description: "Submit your Serializd and Letterboxd profile links", permission: "All"},{name: "/upcoming", description: "View upcoming episodes for tracked shows", permission: "All"},{name: "/serializd", description: "Learn about Serializd - TV tracking platform", permission: "All"}]},
   usermgmt: { icon: "⚙️", title: "Username Management", commands: [{name: "/viewusernames", description: "View all Discord-to-Serializd username connections", permission: "Admin"},{name: "/setusername", description: "Force set a user's Serializd username", permission: "Admin"},{name: "/clearusername", description: "Clear a user's Serializd username connection", permission: "Admin"},{name: "/banusername", description: "Ban/unban a user from using /username command", permission: "Admin"},{name: "/clearsharelink", description: "Clear a user's sharelink so they can resubmit", permission: "Admin"}]},
-  permissions: { icon: "🔒", title: "Permissions", commands: [{name: "/toggleroles", description: "Toggle role-based command restrictions", permission: "Admin"},{name: "/addrole", description: "Add a role that can use bot commands", permission: "Admin"},{name: "/removerole", description: "Remove a role from allowed list", permission: "Admin"},{name: "/viewroles", description: "View role restriction settings", permission: "Admin"}]},
-  info: { icon: "❓", title: "Information", commands: [{name: "/help", description: "Get help with the bot", permission: "All"},{name: "/commands", description: "List all available commands", permission: "All"},{name: "/botstatus", description: "View bot status, version, and statistics", permission: "All"},{name: "/version", description: "View bot version information", permission: "All"},{name: "/changelog", description: "View the most recent bot update", permission: "All"},{name: "/privacy", description: "View privacy policy and data collection information", permission: "All"},{name: "/donate", description: "Support the bot and view supporters", permission: "All"},{name: "/patreon", description: "Support the bot and view supporters", permission: "All"}]}
+  permissions: { icon: "🔒", title: "Permissions", commands: [{name: "/toggleroles", description: "Toggle role-based command restrictions on/off", permission: "Admin"},{name: "/addrole", description: "Add a role that can use bot commands", permission: "Admin"},{name: "/removerole", description: "Remove a role from allowed list", permission: "Admin"},{name: "/viewroles", description: "View role restriction settings", permission: "Admin"}]},
+  info: { icon: "❓", title: "Information", commands: [{name: "/help", description: "Get help with the bot", permission: "All"},{name: "/commands", description: "List all available commands", permission: "All"},{name: "/botstatus", description: "View bot status, version, and statistics", permission: "All"},{name: "/version", description: "View bot version information", permission: "All"},{name: "/changelog", description: "View the most recent bot update", permission: "All"},{name: "/privacy", description: "View privacy policy and data collection information", permission: "All"},{name: "/donate", description: "Support the bot and view supporters - now with tier slots info!", permission: "All"},{name: "/patreon", description: "Support the bot and view supporters - now with tier slots info!", permission: "All"}]}
 };
 function createCategoryButton(key, category) {
   return `<div class="bg-white/5 rounded-2xl border border-white/10" id="${key}-container"><button class="w-full px-8 py-6 flex justify-between items-center text-2xl font-semibold" onclick="toggleCategory('${key}')"><div class="flex items-center gap-4"><div class="w-10 h-10 gradient-bg rounded-lg flex items-center justify-center">${category.icon}</div><span>${category.title}</span></div><svg class="w-6 h-6 transform transition-transform" id="${key}-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button><div class="hidden px-8 pb-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="${key}-commands"></div></div>`;
@@ -218,6 +325,7 @@ gsap.registerPlugin(ScrollTrigger);
 function initHeroAnimations() { const timeline = gsap.timeline({ defaults: { ease: "power3.out" } }); timeline.from("#hero h1", { opacity: 0, y: 100, duration: 1 }).from("#hero p", { opacity: 0, y: 50, duration: 0.8 }, "-=0.5").from("#hero button", { opacity: 0, y: 50, duration: 0.8, stagger: 0.2 }, "-=0.5").from("#hero img", { opacity: 0, x: 100, duration: 1 }, "-=0.5"); }
 function initFeaturesAnimations() { const cards = gsap.utils.toArray(".feature-card"); cards.forEach(card => gsap.from(card, { opacity: 0, y: 50, rotation: 5, duration: 0.8, scrollTrigger: { trigger: card, start: "top bottom-=100", toggleActions: "play none none reverse" } })); }
 function toggleCategory(category) { const commandsDiv = document.getElementById(`${category}-commands`); const arrow = document.getElementById(`${category}-arrow`); if (!loadedCategories.has(category)) { commandsDiv.innerHTML = commandsData[category].commands.map(createCommandHTML).join(''); loadedCategories.add(category); } commandsDiv.classList.toggle("hidden"); arrow.classList.toggle("rotate-180"); }
+function toggleFAQ(faqId) { const content = document.getElementById(`${faqId}-content`); const arrow = document.getElementById(`${faqId}-arrow`); content.classList.toggle("hidden"); arrow.classList.toggle("rotate-180"); }
 function initSmoothScroll() { document.querySelectorAll('a[href^="#"]').forEach(anchor => { anchor.addEventListener("click", e => { e.preventDefault(); const target = document.querySelector(anchor.getAttribute("href")); if (target) { const navHeight = document.querySelector("nav").offsetHeight; window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - navHeight, behavior: "smooth" }); } }); }); }
 function initScrollAnimations() { gsap.to("nav", { scrollTrigger: { trigger: "body", start: "top top", end: "+=100", toggleClass: "nav-blur", scrub: true } }); }
 function initializeWebsite() { initHeroAnimations(); initFeaturesAnimations(); initScrollAnimations(); initSmoothScroll(); document.querySelectorAll(".gradient-bg").forEach(b => b.classList.add("pulse-on-hover")); document.querySelectorAll(".feature-card").forEach(c => c.classList.add("shine-effect")); }
