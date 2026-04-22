@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Serializd Tracker Bot</title>
+<link rel="icon" type="image/x-icon" href="./images/logo1.png">
+<meta content="#14e8e8" data-react-helmet="true" name="theme-color"/>
+<meta name="title" content="Serializd Tracker Bot - Your TV Show Tracking Companion"/>
+<meta name="description" content="Automatically share your Serializd diary entries with your Discord community! Never miss a show discussion again."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="#"/>
+<meta property="og:title" content="Serializd Tracker Bot - Your TV Show Tracking Companion"/>
+<meta property="og:description" content="Automatically share your Serializd diary entries with your Discord community! Never miss a show discussion again."/>
+<meta property="og:image" content="./images/logo1.png"/>
+<meta property="og:color" content="#14e8e8"/>
+<meta property="twitter:card" content="summary_large_image"/>
+<meta property="twitter:url" content="#"/>
+<meta property="twitter:title" content="Serializd Tracker Bot - Your TV Show Tracking Companion"/>
+<meta property="twitter:description" content="Automatically share your Serializd diary entries with your Discord community! Never miss a show discussion again."/>
+<meta property="twitter:image" content="./images/logo1.png"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+@keyframes gradient{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.gradient-bg{background:linear-gradient(-45deg,#14e8e8,#5df2f2,#00b3b3,#047979);background-size:400% 400%;animation:gradient 15s ease infinite}
+#loader{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;display:flex;justify-content:center;align-items:center;z-index:9999;transition:opacity .5s ease-out}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+/* Scroll Progress Bar */
+#scroll-progress{position:fixed;top:0;left:0;width:0%;height:4px;background:linear-gradient(90deg,#14e8e8,#5df2f2,#00b3b3);z-index:9999;transition:width .1s ease}
+
+/* Enhanced Glassmorphism */
+.command-card{background:rgba(255,255,255,.03);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);transition:all .2s ease-out;box-shadow:0 8px 32px rgba(0,0,0,.1)}
+.command-card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 20px 60px rgba(20,232,232,.3);border-color:rgba(20,232,232,.4);background:rgba(255,255,255,.06)}
+
+.feature-card{background:rgba(255,255,255,.03);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);transition:all .2s ease-out;box-shadow:0 8px 32px rgba(0,0,0,.1);position:relative;overflow:hidden}
+.feature-card::before{content:"";position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(20,232,232,.1) 0%,transparent 70%);opacity:0;transition:opacity .2s ease}
+.feature-card:hover{transform:translateY(-12px) scale(1.03);box-shadow:0 25px 70px rgba(20,232,232,.25);border-color:rgba(20,232,232,.5);background:rgba(255,255,255,.06)}
+.feature-card:hover::before{opacity:1}
+
+/* Animated Background */
+.animated-bg{position:absolute;width:100%;height:100%;overflow:hidden;z-index:0;pointer-events:none}
+.bg-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.4;animation:float-orb 20s infinite ease-in-out}
+.bg-orb-1{width:400px;height:400px;background:linear-gradient(45deg,#14e8e8,#047979);top:10%;left:10%;animation-delay:0s}
+.bg-orb-2{width:300px;height:300px;background:linear-gradient(135deg,#5df2f2,#00b3b3);top:60%;right:10%;animation-delay:7s}
+.bg-orb-3{width:350px;height:350px;background:linear-gradient(225deg,#00b3b3,#14e8e8);bottom:20%;left:30%;animation-delay:14s}
+@keyframes float-orb{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(50px,-50px) scale(1.1)}66%{transform:translate(-30px,30px) scale(.9)}}
+
+/* Enhanced Button Styles */
+.gradient-btn{position:relative;background:linear-gradient(45deg,#14e8e8,#047979);overflow:hidden;transition:all .3s ease}
+.gradient-btn::before{content:"";position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent,rgba(255,255,255,.3),transparent);transform:rotate(45deg);transition:all .6s ease}
+.gradient-btn:hover::before{left:100%}
+.gradient-btn:hover{transform:scale(1.05);box-shadow:0 10px 40px rgba(20,232,232,.4)}
+
+.pulse-on-hover{position:relative}
+.pulse-on-hover::after{content:"";position:absolute;inset:0;border-radius:inherit;animation:pulse 2s cubic-bezier(.4,0,.6,1) infinite;opacity:0}
+@keyframes pulse{0%{transform:scale(1);opacity:.5}50%{transform:scale(1.05);opacity:0}100%{transform:scale(1);opacity:0}}
+
+.shine-effect{position:relative;overflow:hidden}
+.shine-effect::before{content:"";position:absolute;top:0;width:100%;height:100%;background:linear-gradient(to right,transparent 0%,rgba(255,255,255,.1) 50%,transparent 100%);transform:translateX(-100%)}
+.shine-effect:hover::before{animation:shine 1.5s ease-in-out}
+@keyframes shine{100%{transform:translateX(100%)}}
+
+.nav-blur{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+
+/* Dark Mode Toggle */
+#dark-mode-toggle{position:fixed;bottom:30px;right:30px;width:60px;height:60px;border-radius:50%;background:linear-gradient(45deg,#14e8e8,#047979);border:none;cursor:pointer;z-index:1000;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 4px 20px rgba(20,232,232,.4);transition:all .3s ease}
+#dark-mode-toggle:hover{transform:scale(1.1) rotate(10deg);box-shadow:0 6px 30px rgba(20,232,232,.6)}
+
+/* Light Mode Styles */
+body.light-mode{background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%)!important;color:#1a1a1a!important}
+body.light-mode .feature-card,body.light-mode .command-card{background:rgba(255,255,255,.7)!important;border-color:rgba(0,0,0,.15)!important;box-shadow:0 8px 32px rgba(0,0,0,.08)!important}
+body.light-mode nav{background:rgba(255,255,255,.5)!important;border-bottom-color:rgba(0,0,0,.1)!important}
+body.light-mode .text-white,body.light-mode h1,body.light-mode h2,body.light-mode h3,body.light-mode h4,body.light-mode button{color:#1a1a1a!important}
+body.light-mode span:not(.text-transparent){color:#1a1a1a!important}
+body.light-mode .text-white\/70,body.light-mode p{color:rgba(26,26,26,.8)!important}
+body.light-mode .bg-black{background:transparent!important}
+body.light-mode .gradient-bg{background:linear-gradient(-45deg,#14e8e8,#5df2f2,#00b3b3,#047979)!important}
+body.light-mode .bg-white\/5,body.light-mode .bg-white\/10{background:rgba(0,0,0,.05)!important}
+body.light-mode #scroll-progress{background:linear-gradient(90deg,#047979,#14e8e8,#5df2f2)!important}
+body.light-mode .animated-bg{opacity:.3}
+body.light-mode #dark-mode-toggle{box-shadow:0 4px 20px rgba(4,121,121,.4)!important}
+body.light-mode .feature-card:hover,body.light-mode .command-card:hover{box-shadow:0 20px 60px rgba(4,121,121,.25)!important}
+
+@media(min-width:640px){.sm\:flex-row{flex-direction:row}.sm\:gap-8{gap:2rem}}
+@media(min-width:1024px){.lg\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+.animate-fade-in{animation:fadeIn .2s ease-out forwards}
+#mobileMenu{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+#gallery-carousel{height:520px}
+</style>
+</head>
+<body class="bg-black text-white overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#14e8e8]">
+<div id="scroll-progress"></div>
+<button id="dark-mode-toggle" title="Toggle theme">🌙</button>
+<div id="loader" class="fixed inset-0 bg-black z-50 flex items-center justify-center"><div class="w-12 h-12 border-4 border-[#14e8e8] border-t-transparent rounded-full animate-spin"></div></div>
+
+<nav class="fixed w-full z-50 top-0">
+<div class="nav-blur bg-black/30 border-b border-white/10">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-20">
+<div class="flex items-center gap-2"><img src="./images/logo1.png" alt="Serializd Tracker Bot Logo" class="w-10 h-10 rounded-lg"/><span class="text-2xl font-bold text-white">Serializd Tracker Bot</span></div>
+<div class="hidden md:flex gap-8">
+<a href="#hero" class="text-white/70 hover:text-white transition-colors">Home</a>
+<a href="#features" class="text-white/70 hover:text-white transition-colors">Features</a>
+<a href="#setup-guide" class="text-white/70 hover:text-white transition-colors">Setup</a>
+<a href="#commands" class="text-white/70 hover:text-white transition-colors">Commands</a>
+<a href="#faq" class="text-white/70 hover:text-white transition-colors">FAQ</a>
+<a href="#gallery" class="text-white/70 hover:text-white transition-colors">Gallery</a>
+</div>
+<div class="md:hidden"><button onclick="toggleMobileMenu()" class="text-white p-2"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path class="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></button></div>
+<a href="https://discord.com/oauth2/authorize?client_id=1476015649775157369" class="hidden md:block"><button class="bg-white/10 hover:bg-white/20 px-6 py-2 rounded-lg transition-all duration-300">Add to Discord</button></a>
+</div>
+<div id="mobileMenu" class="hidden md:hidden"><div class="px-2 pt-2 pb-3 space-y-1 bg-black/50 rounded-lg mt-2">
+<a href="#hero" class="block px-3 py-2 text-white/70 hover:text-white transition-colors">Home</a>
+<a href="#features" class="block px-3 py-2 text-white/70 hover:text-white transition-colors">Features</a>
+<a href="#setup-guide" class="block px-3 py-2 text-white/70 hover:text-white transition-colors">Setup</a>
+<a href="#commands" class="block px-3 py-2 text-white/70 hover:text-white transition-colors">Commands</a>
+<a href="#faq" class="block px-3 py-2 text-white/70 hover:text-white transition-colors">FAQ</a>
+<a href="#gallery" class="block px-3 py-2 text-white/70 hover:text-white transition-colors">Gallery</a>
+<a href="https://discord.com/oauth2/authorize?client_id=1476015649775157369" class="block px-3 py-2 text-white/70 hover:text-white transition-colors">Add to Discord</a>
+</div></div>
+</div>
+</div>
+</nav>
+
+<section id="hero" class="min-h-screen relative overflow-hidden">
+<div class="animated-bg">
+<div class="bg-orb bg-orb-1"></div>
+<div class="bg-orb bg-orb-2"></div>
+<div class="bg-orb bg-orb-3"></div>
+</div>
+<div class="absolute inset-0 gradient-bg opacity-10"></div>
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#14e8e8]/40 via-black to-black"></div>
+<div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+<div class="space-y-8 text-center lg:text-left mt-16 lg:mt-0">
+<h1 class="text-4xl md:text-6xl font-bold leading-tight">Serializd Tracker Bot <span class="text-white">Your TV Show Tracking Companion</span></h1>
+<p class="text-lg md:text-xl text-white/70">Automatically share your Serializd diary entries with your Discord community! Never miss a show discussion again. Serializd is like Letterboxd for TV shows - track what you're watching, rate episodes, and share your TV journey.</p>
+<div class="flex flex-col gap-4 sm:flex-row sm:gap-8 justify-center lg:justify-start">
+<a href="https://discord.com/oauth2/authorize?client_id=1476015649775157369" class="inline-flex items-center justify-center gradient-bg gradient-btn px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity duration-300">Add to Discord</a>
+<a href="#commands" class="inline-flex items-center justify-center bg-white/10 hover:bg-white/20 px-8 py-4 rounded-xl font-semibold transition-colors duration-300">View Commands</a>
+</div>
+</div>
+<div class="relative"><img src="./images/logo1.png" alt="Bot Dashboard" class="relative rounded-3xl w-full max-w-md mx-auto hidden lg:block"/></div>
+</div>
+</div>
+</section>
+
+<section id="features" class="py-32 relative">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-20"><h2 class="text-5xl font-bold mb-4">Features of Serializd Tracker Bot</h2><p class="text-xl text-white/70">Everything you need to track and share TV shows in your Discord server.</p></div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="feature-card p-8 rounded-2xl"><div class="w-14 h-14 gradient-bg rounded-xl mb-6 flex items-center justify-center text-2xl">📝</div><h3 class="text-2xl font-bold mb-4">Automatic Diary Posting</h3><p class="text-white/70">Auto-tracks Serializd users in your server. Posts new diary entries to your designated channel within 10 minutes. Beautiful embeds with show artwork, ratings, and episode details.</p></div>
+<div class="feature-card p-8 rounded-2xl"><div class="w-14 h-14 gradient-bg rounded-xl mb-6 flex items-center justify-center text-2xl">🔍</div><h3 class="text-2xl font-bold mb-4">Interactive Profile Browser</h3><p class="text-white/70">Browse any user's Serializd profile directly in Discord. View: Recently Logged, Currently Watching, Watchlist, Dropped, Paused. Pagination and sorting options.</p></div>
+<div class="feature-card p-8 rounded-2xl"><div class="w-14 h-14 gradient-bg rounded-xl mb-6 flex items-center justify-center text-2xl">📊</div><h3 class="text-2xl font-bold mb-4">Global Statistics & Top 20 Leaderboards</h3><p class="text-white/70">Server stats - see what your community is watching. Global stats with Top 20 leaderboards for watchers, guilds, and trending shows across all servers. Anonymous mode available.</p></div>
+<div class="feature-card p-8 rounded-2xl"><div class="w-14 h-14 gradient-bg rounded-xl mb-6 flex items-center justify-center text-2xl">📦</div><h3 class="text-2xl font-bold mb-4">Group Diary for Binges</h3><p class="text-white/70">Automatically groups multiple episodes into one clean embed when you binge-watch shows. Configurable time window and customizable formatting.</p></div>
+<div class="feature-card p-8 rounded-2xl"><div class="w-14 h-14 gradient-bg rounded-xl mb-6 flex items-center justify-center text-2xl">🔔</div><h3 class="text-2xl font-bold mb-4">Episode Alerts & Upcoming</h3><p class="text-white/70">Get notified about upcoming episodes for shows you're tracking. Never miss a new episode of your favorite shows.</p></div>
+<div class="feature-card p-8 rounded-2xl"><div class="w-14 h-14 gradient-bg rounded-xl mb-6 flex items-center justify-center text-2xl">🎨</div><h3 class="text-2xl font-bold mb-4">Fully Customizable Embeds</h3><p class="text-white/70">Custom embed colors to match your server's theme. Toggle field visibility, rename labels, configure formatting, and set thumbnail priorities.</p></div>
+<div class="feature-card p-8 rounded-2xl"><div class="w-14 h-14 gradient-bg rounded-xl mb-6 flex items-center justify-center text-2xl">🚀</div><h3 class="text-2xl font-bold mb-4">Interactive Setup Wizard</h3><p class="text-white/70">New /setup command guides you through configuration step-by-step. Configure channels, users, and customization in 2-3 minutes.</p></div>
+<div class="feature-card p-8 rounded-2xl"><div class="w-14 h-14 gradient-bg rounded-xl mb-6 flex items-center justify-center text-2xl">📅</div><h3 class="text-2xl font-bold mb-4">Weekly & Monthly Recaps</h3><p class="text-white/70">Automated recap summaries of your server's watching activity. See who watched the most, which shows were trending, and celebrate your community's top watchers each week and month.</p></div>
+<div class="feature-card p-8 rounded-2xl"><div class="w-14 h-14 gradient-bg rounded-xl mb-6 flex items-center justify-center text-2xl">🔒</div><h3 class="text-2xl font-bold mb-4">Privacy Controls</h3><p class="text-white/70">Control your data with username anonymization and Discord invite link toggles. Your privacy, your choice.</p></div>
+</div>
+</div>
+</section>
+
+<section id="setup-guide" class="py-32 relative">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-16"><h2 class="text-5xl font-bold mb-4">Quick Setup Guide</h2><p class="text-xl text-white/70">Get started in 3 simple steps</p></div>
+<div class="space-y-8">
+<div class="feature-card p-8 rounded-2xl flex gap-6 items-start">
+<div class="w-16 h-16 gradient-bg rounded-xl flex items-center justify-center text-3xl font-bold flex-shrink-0">1</div>
+<div class="flex-1">
+<h3 class="text-2xl font-bold mb-3">Add Bot to Your Server</h3>
+<p class="text-white/70 mb-4">Click the button below to invite the bot to your Discord server. Make sure you have administrator permissions.</p>
+<a href="https://discord.com/oauth2/authorize?client_id=1476015649775157369" target="_blank" class="inline-flex items-center gradient-bg px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">Add to Discord →</a>
+</div>
+</div>
+<div class="feature-card p-8 rounded-2xl flex gap-6 items-start">
+<div class="w-16 h-16 gradient-bg rounded-xl flex items-center justify-center text-3xl font-bold flex-shrink-0">2</div>
+<div class="flex-1">
+<h3 class="text-2xl font-bold mb-3">Run Setup Wizard</h3>
+<p class="text-white/70">Type <code class="px-2 py-1 bg-white/10 rounded">/setup</code> in your server to launch the interactive setup wizard. It will guide you through configuring the bot step-by-step.</p>
+</div>
+</div>
+<div class="feature-card p-8 rounded-2xl flex gap-6 items-start">
+<div class="w-16 h-16 gradient-bg rounded-xl flex items-center justify-center text-3xl font-bold flex-shrink-0">3</div>
+<div class="flex-1">
+<h3 class="text-2xl font-bold mb-3">Add Users to Track</h3>
+<p class="text-white/70">Use <code class="px-2 py-1 bg-white/10 rounded">/adduser [username]</code> to start tracking Serializd users. The bot will automatically post their diary entries to your designated channel!</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="commands" class="py-32 relative">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-20"><h2 class="text-5xl font-bold mb-4">Commands</h2><p class="text-xl text-white/70">Explore all available bot commands</p></div>
+<div class="space-y-6" id="commands-container"></div>
+</div>
+</section>
+
+<section id="faq" class="py-32 relative bg-gradient-to-b from-black/50 to-black">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-16"><h2 class="text-5xl font-bold mb-4">Frequently Asked Questions</h2><p class="text-xl text-white/70">Need help? We've got you covered</p></div>
+<div class="space-y-6">
+<div class="bg-white/5 rounded-2xl border border-white/10">
+<button class="w-full px-8 py-6 flex justify-between items-center text-2xl font-semibold" onclick="toggleFAQ('faq1')">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 gradient-bg rounded-lg flex items-center justify-center">❓</div>
+<span class="text-left">I have an issue, how can I get help?</span>
+</div>
+<svg class="w-6 h-6 transform transition-transform" id="faq1-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+</svg>
+</button>
+<div class="hidden px-8 pb-6" id="faq1-content">
+<p class="text-white/70 mb-4">Join our Discord server for support from the community and developers:</p>
+<a href="https://discord.gg/hmrHbWCpcP" target="_blank" class="inline-flex items-center gradient-bg px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">Join Discord Server →</a>
+</div>
+</div>
+<div class="bg-white/5 rounded-2xl border border-white/10">
+<button class="w-full px-8 py-6 flex justify-between items-center text-2xl font-semibold" onclick="toggleFAQ('faq2')">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 gradient-bg rounded-lg flex items-center justify-center">💬</div>
+<span class="text-left">I have some feedback</span>
+</div>
+<svg class="w-6 h-6 transform transition-transform" id="faq2-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+</svg>
+</button>
+<div class="hidden px-8 pb-6" id="faq2-content">
+<p class="text-white/70 mb-4">We'd love to hear your thoughts! Share your feedback in our Discord:</p>
+<a href="https://discord.gg/hmrHbWCpcP" target="_blank" class="inline-flex items-center gradient-bg px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">Join Discord Server →</a>
+</div>
+</div>
+<div class="bg-white/5 rounded-2xl border border-white/10">
+<button class="w-full px-8 py-6 flex justify-between items-center text-2xl font-semibold" onclick="toggleFAQ('faq3')">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 gradient-bg rounded-lg flex items-center justify-center">💡</div>
+<span class="text-left">I have a suggestion</span>
+</div>
+<svg class="w-6 h-6 transform transition-transform" id="faq3-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+</svg>
+</button>
+<div class="hidden px-8 pb-6" id="faq3-content">
+<p class="text-white/70 mb-4">Got ideas for new features? Let us know in our Discord server:</p>
+<a href="https://discord.gg/hmrHbWCpcP" target="_blank" class="inline-flex items-center gradient-bg px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">Join Discord Server →</a>
+</div>
+</div>
+<div class="bg-white/5 rounded-2xl border border-white/10">
+<button class="w-full px-8 py-6 flex justify-between items-center text-2xl font-semibold" onclick="toggleFAQ('faq4')">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 gradient-bg rounded-lg flex items-center justify-center">🔧</div>
+<span class="text-left">My diary isn't tracking my user</span>
+</div>
+<svg class="w-6 h-6 transform transition-transform" id="faq4-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+</svg>
+</button>
+<div class="hidden px-8 pb-6" id="faq4-content">
+<p class="text-white/70 mb-4">Make sure you've correctly typed the username. You can check which users are added with <code class="px-2 py-1 bg-white/10 rounded">/listusers</code>.</p>
+<p class="text-white/70 mb-4">Still not working? Join our Discord for personalized support:</p>
+<a href="https://discord.gg/hmrHbWCpcP" target="_blank" class="inline-flex items-center gradient-bg px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity">Join Discord Server →</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="gallery" class="py-32 relative">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-20"><h2 class="text-5xl font-bold mb-4 text-white">Gallery</h2><p class="text-xl text-white/70">Screenshots and examples of the bot in action (swipe or use arrows)</p></div>
+<div id="gallery-carousel" class="relative overflow-hidden rounded-3xl h-[520px]">
+<div id="slides" class="flex transition-transform duration-500 ease-out h-full"></div>
+<button onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-3 rounded-full text-2xl">‹</button>
+<button onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-3 rounded-full text-2xl">›</button>
+<div id="dots" class="absolute bottom-6 left-1/2 flex gap-2 -translate-x-1/2"></div>
+</div>
+</div>
+</section>
+
+<section id="privacy" class="py-32 relative">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-20"><h2 class="text-5xl font-bold mb-4 text-white">Privacy & Data Collection</h2><p class="text-xl text-white/70">We prioritize your privacy. Here's what we collect and how we use it.</p></div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="feature-card p-8 rounded-2xl"><h3 class="text-2xl font-bold mb-4">What We Collect</h3><ul class="text-white/70 space-y-2"><li>Server Configuration: Guild ID, name, and configured channel IDs</li><li>User Tracking: Serializd usernames you choose to track</li><li>Activity Data: Diary entry IDs already posted</li><li>Technical Cache: TV show status data from TVMaze API</li></ul></div>
+<div class="feature-card p-8 rounded-2xl"><h3 class="text-2xl font-bold mb-4">What We DON'T Collect</h3><ul class="text-white/70 space-y-2"><li>Message content or conversation history</li><li>User passwords, tokens, or credentials</li><li>Private Serializd account data</li><li>IP addresses or device information</li></ul></div>
+<div class="feature-card p-8 rounded-2xl"><h3 class="text-2xl font-bold mb-4">How We Use Your Data</h3><ul class="text-white/70 space-y-2"><li>Functionality: Track and post Serializd diary entries</li><li>Statistics: Generate viewing stats for your community</li><li>Performance: Cache show data to reduce API calls</li><li>No Selling: Data is never sold or shared</li></ul></div>
+<div class="feature-card p-8 rounded-2xl"><h3 class="text-2xl font-bold mb-4">Data Retention & Your Rights</h3><ul class="text-white/70 space-y-2"><li>Auto-Delete: All data deleted 48 hours after bot removal</li><li>View Data: Use commands like /listusers, /privacy</li><li>Full Deletion: Request via support server</li></ul></div>
+</div>
+</div>
+</section>
+
+<section class="bg-black min-h-screen flex flex-col items-center justify-center p-4 sm:p-8 md:p-16 lg:p-32">
+<div class="text-center mb-20"><h2 class="text-5xl font-bold mb-4 text-white">Self-Host & Community</h2><p class="text-xl text-white/70">Join our community and check the self-host version on GitHub.</p></div>
+<div class="w-full max-w-4xl flex flex-col gap-8 items-center">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+<div class="bg-white/5 border border-white/10 rounded-2xl p-6 transition-colors feature-card">
+<div class="flex items-center gap-4 mb-6">
+<div class="w-12 h-12 gradient-bg rounded-xl flex items-center justify-center text-2xl">
+<svg class="w-6 h-6" fill="currentcolor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
+</div>
+<div><h3 class="text-white text-xl font-bold">Self-Host Source Code</h3><p class="text-white/70 text-sm">View on GitHub</p></div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4 text-white/70 text-sm">
+<div class="flex items-center gap-1"><svg class="w-4 h-4" fill="currentcolor" viewBox="0 0 16 16"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"></path></svg><span id="stars-count">Loading...</span></div>
+<div class="flex items-center gap-1"><svg class="w-4 h-4" fill="currentcolor" viewBox="0 0 16 16"><path d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path></svg><span id="forks-count">Loading...</span></div>
+</div>
+<a href="https://github.com/Kjerne/Serializd-Discord-Bot" class="bg-[#14e8e8] hover:bg-[#0aa8a8] text-black text-sm font-medium px-4 py-2 rounded-lg transition-colors">View Source</a>
+</div>
+</div>
+<div class="bg-white/5 border border-white/10 rounded-2xl p-6 transition-colors feature-card">
+<div class="flex items-center gap-4 mb-6">
+<img src="./images/logo1.png" alt="Server Icon" class="w-12 h-12 rounded-xl"/>
+<div><h3 class="text-white text-xl font-bold">Serializd Tracker Bot</h3><p class="text-white/70 text-sm">Official Discord Server</p></div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4 text-white/70 text-sm">
+<div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-green-500"></div><span id="online-count">5 Online</span></div>
+<div class="w-1 h-1 rounded-full bg-white/20"></div>
+<span id="member-count">8 Members</span>
+</div>
+<a href="https://discord.gg/hmrHbWCpcP" class="bg-[#5865F2] hover:bg-[#4752C4] text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors">Join Server</a>
+</div>
+</div>
+</div>
+<div class="mt-8 flex justify-center">
+<a href="https://top.gg/bot/1476015649775157369" target="_blank"><img src="https://top.gg/api/widget/1476015649775157369.svg" alt="Top.gg Widget" class="max-w-full h-auto"></a>
+</div>
+</div>
+</section>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-center py-16">
+<button onclick="scrollToTop()" class="group bg-white/5 border border-white/10 rounded-2xl p-4 transition-all hover:border-[#14e8e8]">
+<svg class="w-6 h-6 text-white/70 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+</button>
+</div>
+</div>
+
+<footer class="text-white py-16 border-t border-white/10">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+<div><img class="h-10 mb-6" src="./images/logo1.png" alt="Serializd Tracker Bot Logo"/><p class="text-lg text-white/70">Serializd Tracker Bot is the ultimate tool for sharing and discussing TV shows in your Discord server with automatic tracking and stats!</p></div>
+<div><h4 class="text-xl font-semibold mb-4">Quick Links</h4><ul class="space-y-4"><li><a href="#hero" class="text-white/70 hover:text-white">Home</a></li><li><a href="#features" class="text-white/70 hover:text-white">Features</a></li><li><a href="#commands" class="text-white/70 hover:text-white">Commands</a></li><li><a href="#gallery" class="text-white/70 hover:text-white">Gallery</a></li><li><a href="terms.html" class="text-white/70 hover:text-white">Terms of Service</a></li><li><a href="privacy-policy.html" class="text-white/70 hover:text-white">Privacy Policy</a></li></ul></div>
+<div><h4 class="text-xl font-semibold mb-4">Follow Us</h4><ul class="space-y-4"><li><a href="https://discord.com/oauth2/authorize?client_id=1476015649775157369" class="text-white/70 hover:text-white">Invite</a></li><li><a href="https://discord.gg/hmrHbWCpcP" class="text-white/70 hover:text-white">Discord</a></li><li><a href="https://github.com/Kjerne/Serializd-Discord-Bot" class="text-white/70 hover:text-white">GitHub</a></li></ul></div>
+</div>
+<div class="mt-12 border-t border-white/20 pt-6 text-center"><p class="text-sm text-white/50">© 2026 Serializd Tracker Bot. All rights reserved. • Not affiliated with Discord Inc. or Serializd. • <a href="terms.html" class="hover:text-white/70 transition-colors">Terms of Service</a> • <a href="privacy-policy.html" class="hover:text-white/70 transition-colors">Privacy Policy</a></p></div>
+</div>
+</footer>
+
+<script>
+const commandsData = {
+  setup: { icon: "🛠️", title: "Setup & Configuration", commands: [{name: "/setup", description: "Interactive setup wizard for initial configuration", permission: "Admin"},{name: "/setchannel", description: "Set channel for diary posts, sharelinks, commands, changelog, or new episodes", permission: "Admin"},{name: "/setcolor", description: "Set custom embed color for this server", permission: "Admin"},{name: "/setanonymous", description: "Toggle guild anonymity in global stats", permission: "Admin"},{name: "/setdiscordlink", description: "Set Discord invite link for global stats", permission: "Admin"},{name: "/admininfo", description: "View server configuration and settings", permission: "Admin"}]},
+  settings_menu: { icon: "⚙️", title: "Settings Menu Options", commands: [{name: "/settings", description: "Open interactive bot configuration menu", permission: "Admin"},{name: "/diaryfields", description: "Configure which fields show in diary entries", permission: "Admin"},{name: "/diaryformat", description: "Configure diary formatting and visual settings", permission: "Admin"},{name: "/toggle", description: "Turn a diary field on or off", permission: "Admin"},{name: "/changename", description: "Change the label of a diary field", permission: "Admin"},{name: "/thumbnail", description: "Change thumbnail priority for diary entries", permission: "Admin"},{name: "/timestampformat", description: "Change how the logged date appears in entries", permission: "Admin"},{name: "/authorformat", description: "Change author line format in diary embeds", permission: "Admin"},{name: "/watchfilter", description: "Filter which entries to post (first watches, rewatches, or both)", permission: "Admin"},{name: "/pingrole", description: "Set role to ping on new diary entries", permission: "Admin"},{name: "/groupdiary", description: "Configure group diary mode and timing for binge sessions", permission: "Admin"},{name: "/groupfields", description: "Configure which fields show in group diary embeds", permission: "Admin"},{name: "/groupformat", description: "Configure group diary formatting and visual settings", permission: "Admin"},{name: "/auditlog", description: "View recent settings changes for this server", permission: "Admin"}]},
+  tracking: { icon: "👥", title: "User Tracking", commands: [{name: "/adduser", description: "Add one or more Serializd users to track", permission: "Admin"},{name: "/track", description: "Add one or more Serializd users to track (alias for /adduser)", permission: "Admin"},{name: "/removeuser", description: "Remove a tracked Serializd user", permission: "Admin"},{name: "/untrack", description: "Remove a tracked Serializd user (alias for /removeuser)", permission: "Admin"},{name: "/edituser", description: "Link or update a Discord user's connection to a tracked Serializd username", permission: "Admin"},{name: "/listusers", description: "Show all tracked users in this server", permission: "All"},{name: "/testuser", description: "Test if API can fetch a user's diary", permission: "Admin"},{name: "/clearallusers", description: "Remove ALL tracked users from this server", permission: "Admin"}]},
+  browsing_community: { icon: "🔍", title: "Browsing, Stats & Community", commands: [{name: "/profile", description: "View a user's Serializd profile with interactive navigation", permission: "All"},{name: "/stats", description: "View server and global statistics with Top 20 leaderboards", permission: "All"},{name: "/sharelink", description: "Submit your social profile links (Serializd, Letterboxd, Instagram, X, and more) to the server's sharelink channel", permission: "All"},{name: "/editsharelink", description: "Update your existing sharelink embed with new platforms or changed usernames", permission: "All"},{name: "/clearsharelink", description: "Clear a user's sharelink so they can resubmit", permission: "Admin"},{name: "/upcoming", description: "View upcoming episodes for tracked shows", permission: "All"},{name: "/serializd", description: "Learn about Serializd - TV tracking platform", permission: "All"}]},
+  permissions: { icon: "🔒", title: "Permissions", commands: [{name: "/roleadd", description: "Assign a user or role to a permission group (admin / mod / user)", permission: "Admin"},{name: "/roleremove", description: "Remove a user or role from a permission group", permission: "Admin"},{name: "/roleview", description: "View and manage permission groups and command access", permission: "Admin"}]},
+  user_preferences: { icon: "🕐", title: "User Preferences", commands: [{name: "/timezone set", description: "Set your personal timezone for date display in bot commands", permission: "All"},{name: "/timezone guild", description: "Set this server's default timezone for users who haven't set their own", permission: "Admin"},{name: "/timezone view", description: "See your current timezone and this server's default", permission: "All"}]},
+  info: { icon: "❓", title: "Information", commands: [{name: "/help", description: "Get help with the bot", permission: "All"},{name: "/commands", description: "List all available commands", permission: "All"},{name: "/features", description: "See a quick overview of everything this bot can do", permission: "All"},{name: "/botstatus", description: "View bot status, version, and statistics", permission: "All"},{name: "/uptime", description: "View bot uptime, downtime history, and availability", permission: "All"},{name: "/version", description: "View bot version information", permission: "All"},{name: "/changelog", description: "View the most recent bot update", permission: "All"},{name: "/privacy", description: "View privacy policy and data collection information", permission: "All"},{name: "/donate", description: "Support the bot and view supporters", permission: "All"},{name: "/patreon", description: "Support the bot and view supporters (alias for /donate)", permission: "All"}]}
+};
+function createCategoryButton(key, category) {
+  return `<div class="bg-white/5 rounded-2xl border border-white/10" id="${key}-container"><button class="w-full px-8 py-6 flex justify-between items-center text-2xl font-semibold" onclick="toggleCategory('${key}')"><div class="flex items-center gap-4"><div class="w-10 h-10 gradient-bg rounded-lg flex items-center justify-center">${category.icon}</div><span>${category.title}</span></div><svg class="w-6 h-6 transform transition-transform" id="${key}-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button><div class="hidden px-8 pb-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="${key}-commands"></div></div>`;
+}
+function createCommandHTML(cmd) {
+  return `<div class="command-card bg-white/5 p-6 rounded-xl border border-white/10"><div class="flex justify-between items-start"><div><h4 class="text-xl font-semibold mb-2">${cmd.name}</h4><p class="text-white/70">${cmd.description}</p></div><span class="px-3 py-1 bg-[#14e8e8]/20 text-[#14e8e8] rounded-lg text-sm">${cmd.permission}</span></div></div>`;
+}
+const loadedCategories = new Set();
+document.addEventListener("DOMContentLoaded", () => { setTimeout(() => { const loader = document.getElementById("loader"); if (loader) { loader.style.opacity = "0"; setTimeout(() => loader.remove(), 500); } }, 1000); });
+gsap.registerPlugin(ScrollTrigger);
+function initHeroAnimations() { const timeline = gsap.timeline({ defaults: { ease: "power2.out" } }); timeline.from("#hero h1", { opacity: 0, y: 20, duration: 0.3 }).from("#hero p", { opacity: 0, y: 15, duration: 0.25 }, "-=0.2").from("#hero button", { opacity: 0, y: 15, duration: 0.25, stagger: 0.05 }, "-=0.15").from("#hero img", { opacity: 0, scale: 0.95, duration: 0.3 }, "-=0.2"); }
+function initFeaturesAnimations() { const cards = gsap.utils.toArray(".feature-card"); cards.forEach(card => gsap.from(card, { opacity: 0, y: 15, duration: 0.25, ease: "power2.out", scrollTrigger: { trigger: card, start: "top bottom-=20", toggleActions: "play none none none" } })); }
+function toggleCategory(category) { const commandsDiv = document.getElementById(`${category}-commands`); const arrow = document.getElementById(`${category}-arrow`); if (!loadedCategories.has(category)) { commandsDiv.innerHTML = commandsData[category].commands.map(createCommandHTML).join(''); loadedCategories.add(category); } commandsDiv.classList.toggle("hidden"); arrow.classList.toggle("rotate-180"); }
+function toggleFAQ(faqId) { const content = document.getElementById(`${faqId}-content`); const arrow = document.getElementById(`${faqId}-arrow`); content.classList.toggle("hidden"); arrow.classList.toggle("rotate-180"); }
+function initSmoothScroll() { document.querySelectorAll('a[href^="#"]').forEach(anchor => { anchor.addEventListener("click", e => { e.preventDefault(); const target = document.querySelector(anchor.getAttribute("href")); if (target) { const navHeight = document.querySelector("nav").offsetHeight; window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - navHeight, behavior: "smooth" }); } }); }); }
+function initScrollAnimations() { gsap.to("nav", { scrollTrigger: { trigger: "body", start: "top top", end: "+=100", toggleClass: "nav-blur", scrub: true } }); }
+function initializeWebsite() { initHeroAnimations(); initFeaturesAnimations(); initScrollAnimations(); initSmoothScroll(); document.querySelectorAll(".gradient-bg").forEach(b => b.classList.add("pulse-on-hover")); document.querySelectorAll(".feature-card").forEach(c => c.classList.add("shine-effect")); }
+async function updateGitHubStats() { try { const res = await fetch("https://api.github.com/repos/Kjerne/Serializd-Discord-Bot"); const data = await res.json(); document.getElementById("stars-count").textContent = `${data.stargazers_count} Stars`; document.getElementById("forks-count").textContent = `${data.forks_count} Forks`; } catch {} }
+async function updateDiscordStats() { try { const res = await fetch('https://discord.com/api/invites/hmrHbWCpcP?with_counts=true'); const data = await res.json(); document.getElementById('online-count').textContent = `${data.approximate_presence_count} Online`; document.getElementById('member-count').textContent = `${data.approximate_member_count} Members`; } catch {} }
+function scrollToTop() { window.scrollTo({ top: 0, behavior: "smooth" }); }
+document.addEventListener("DOMContentLoaded", initializeWebsite);
+document.addEventListener("DOMContentLoaded", () => { const container = document.getElementById("commands-container"); container.innerHTML = Object.entries(commandsData).map(([k, c]) => createCategoryButton(k, c)).join(''); });
+document.addEventListener("DOMContentLoaded", updateDiscordStats);
+updateGitHubStats(); setInterval(updateGitHubStats, 300000);
+function toggleMobileMenu() { const mobileMenu = document.getElementById("mobileMenu"); const menuIcon = document.querySelector(".menu-icon"); if (mobileMenu.classList.contains("hidden")) { mobileMenu.classList.remove("hidden"); mobileMenu.classList.add("animate-fade-in"); menuIcon.setAttribute("d", "M6 18L18 6M6 6l12 12"); } else { mobileMenu.classList.add("hidden"); mobileMenu.classList.remove("animate-fade-in"); menuIcon.setAttribute("d", "M4 6h16M4 12h16M4 18h16"); } }
+document.addEventListener("click", e => { const mobileMenu = document.getElementById("mobileMenu"); const menuButton = document.querySelector(".md\\:hidden button"); if (!mobileMenu.classList.contains("hidden") && !mobileMenu.contains(e.target) && !menuButton.contains(e.target)) { mobileMenu.classList.add("hidden"); mobileMenu.classList.remove("animate-fade-in"); document.querySelector(".menu-icon").setAttribute("d", "M4 6h16M4 12h16M4 18h16"); } });
+
+/* FIXED GALLERY - exactly 3 images, auto-resize, no overflow */
+let currentSlide = 0;
+function createGallery() {
+  const slides = document.getElementById('slides');
+  const dots = document.getElementById('dots');
+  slides.innerHTML = ''; dots.innerHTML = '';
+  for (let i = 1; i <= 10; i++) {
+    slides.innerHTML += `<div class="flex-shrink-0 w-1/3 h-full flex items-center justify-center px-4"><img src="images/image${i}.png" alt="Screenshot ${i}" class="max-h-[480px] w-auto object-contain rounded-3xl"></div>`;
+    const dot = document.createElement('button');
+    dot.className = `w-3 h-3 rounded-full transition-all ${i===1 ? 'bg-[#14e8e8]' : 'bg-white/30'}`;
+    dot.onclick = () => { currentSlide = i-1; updateCarousel(); };
+    dots.appendChild(dot);
+  }
+  updateCarousel();
+}
+function updateCarousel() {
+  const max = 7;
+  if (currentSlide > max) currentSlide = max;
+  document.getElementById('slides').style.transform = `translateX(-${currentSlide * (100 / 3)}%)`;
+  Array.from(document.getElementById('dots').children).forEach((d,i) => d.className = `w-3 h-3 rounded-full transition-all ${i===currentSlide ? 'bg-[#14e8e8]' : 'bg-white/30'}`);
+}
+function nextSlide() { currentSlide = Math.min(currentSlide + 1, 7); updateCarousel(); }
+function prevSlide() { currentSlide = Math.max(currentSlide - 1, 0); updateCarousel(); }
+document.addEventListener("DOMContentLoaded", createGallery);
+
+// Scroll Progress Bar
+window.addEventListener('scroll', () => {
+  const scrollProgress = document.getElementById('scroll-progress');
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const progress = (scrollTop / scrollHeight) * 100;
+  scrollProgress.style.width = progress + '%';
+});
+
+// Dark Mode Toggle
+const darkModeToggle = document.getElementById('dark-mode-toggle');
+const body = document.body;
+const savedTheme = localStorage.getItem('theme') || 'dark';
+body.classList.add(savedTheme === 'dark' ? 'dark-mode' : 'light-mode');
+darkModeToggle.textContent = savedTheme === 'dark' ? '🌙' : '☀️';
+
+darkModeToggle.addEventListener('click', () => {
+  const isDark = body.classList.contains('dark-mode');
+  body.classList.remove('dark-mode', 'light-mode');
+  body.classList.add(isDark ? 'light-mode' : 'dark-mode');
+  darkModeToggle.textContent = isDark ? '☀️' : '🌙';
+  localStorage.setItem('theme', isDark ? 'light' : 'dark');
+});
+</script>
+</body>
+</html>
