@@ -88,7 +88,7 @@ body.light-mode .animated-bg{opacity:.3}
   <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
     <div class="w-14 h-14 gradient-bg rounded-xl flex items-center justify-center text-3xl mx-auto mb-6">🔒</div>
     <h1 class="text-5xl md:text-6xl font-bold mb-4">Privacy Policy</h1>
-    <p class="text-xl text-white/70">Effective date: April 22, 2026</p>
+    <p class="text-xl text-white/70">Effective date: April 26, 2026</p>
     <p class="text-white/50 mt-2 text-sm">We collect only what's needed. We never sell your data.</p>
   </div>
 </section>
@@ -132,8 +132,8 @@ body.light-mode .animated-bg{opacity:.3}
         <div class="border-t border-white/10 pt-5">
           <h3 class="text-lg font-semibold text-white mb-3">Tracked Serializd Usernames</h3>
           <ul class="text-white/70 space-y-2 list-none">
-            <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span> Serializd usernames added via <code class="px-1 py-0.5 bg-white/10 rounded text-sm">/adduser</code>, the guild ID they belong to, and when they were added</li>
-            <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span> Optionally, a Discord User ID → Serializd username mapping if configured</li>
+            <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span> Serializd usernames added via /adduser, the guild ID they belong to, and when they were added</li>
+            <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span> A Discord User ID linked to each tracked Serializd username</li>
           </ul>
           <p class="text-white/50 text-sm mt-2">Purpose: To know which Serializd accounts to poll and where to post new diary entries.</p>
         </div>
@@ -141,18 +141,20 @@ body.light-mode .animated-bg{opacity:.3}
         <div class="border-t border-white/10 pt-5">
           <h3 class="text-lg font-semibold text-white mb-3">Diary Entry Activity</h3>
           <ul class="text-white/70 space-y-2 list-none">
-            <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span> IDs of diary entries that have already been posted, stored for <strong class="text-white">14 days</strong> to prevent duplicate posts</li>
-            <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span> Aggregated statistics per entry (show name, show ID, username, guild ID, posted timestamp) stored for <strong class="text-white">90 days</strong></li>
-            <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span> Temporarily buffered group diary entry JSON for the group diary feature (held until the grouping window closes)</li>
+            <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span><span> IDs of diary entries that have already been posted, stored for <strong class="text-white">14 days</strong> to prevent duplicate posts</span></li>
+            <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span><span> Aggregated statistics per entry (show name, show ID, username, guild ID, posted timestamp) stored for <strong class="text-white">90 days</strong></span></li>
+            <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span><span> Temporarily buffered group diary entry JSON for the group diary feature (held until the grouping window closes)</span></li>
+            <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span><span> Full diary entry JSON temporarily stored for failed-post retries, automatically deleted after <strong class="text-white">7 days</strong> if the post cannot be delivered</span></li>
           </ul>
-          <p class="text-white/50 text-sm mt-2">Purpose: Deduplication, per-server statistics, and group diary bundling.</p>
+          <p class="text-white/50 text-sm mt-2">Purpose: Deduplication, per-server statistics, group diary bundling, and reliable delivery via retry.</p>
         </div>
 
         <div class="border-t border-white/10 pt-5">
           <h3 class="text-lg font-semibold text-white mb-3">Watching List &amp; Episode Tracking</h3>
           <ul class="text-white/70 space-y-2 list-none">
-            <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span> Show IDs, names, TVMaze IDs, and poster URLs for shows on your server's current watching list</li>
-            <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span> Episode IDs and air dates for episodes that have already been announced, to prevent duplicate episode alerts</li>
+            <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span><span> Show IDs, names, TVMaze IDs, and poster URLs for shows on your server's current watching list (kept for <strong class="text-white">30 days</strong> after a show is removed)</span></li>
+            <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span><span> Episode IDs and air dates for episodes that have already been announced, to prevent duplicate episode alerts (kept for <strong class="text-white">90 days</strong>)</span></li>
+            <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span><span> Failed episode announcement data temporarily stored for retry, automatically deleted after <strong class="text-white">7 days</strong></span></li>
           </ul>
           <p class="text-white/50 text-sm mt-2">Purpose: Episode announcement feature.</p>
         </div>
@@ -171,7 +173,7 @@ body.light-mode .animated-bg{opacity:.3}
         <div class="border-t border-white/10 pt-5">
           <h3 class="text-lg font-semibold text-white mb-3">User Preferences</h3>
           <ul class="text-white/70 space-y-2 list-none">
-            <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span> A per-user timezone preference set via <code class="px-1 py-0.5 bg-white/10 rounded text-sm">/timezone</code> (defaults to Europe/Copenhagen)</li>
+            <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span> A per-user timezone preference set via /timezone (defaults to Europe/Copenhagen)</li>
           </ul>
           <p class="text-white/50 text-sm mt-2">Purpose: Displaying timestamps in your local time.</p>
         </div>
@@ -179,9 +181,17 @@ body.light-mode .animated-bg{opacity:.3}
         <div class="border-t border-white/10 pt-5">
           <h3 class="text-lg font-semibold text-white mb-3">Settings Audit Log</h3>
           <ul class="text-white/70 space-y-2 list-none">
-            <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span> A log of every admin setting change, including: guild ID, the Discord User ID and display name of who made the change, the setting name, old value, new value, and timestamp</li>
+            <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span><span> A log of every admin setting change, including: guild ID, the Discord User ID and display name of who made the change, the setting name, old value, new value, and timestamp. Entries are automatically deleted after <strong class="text-white">90 days</strong>.</span></li>
           </ul>
           <p class="text-white/50 text-sm mt-2">Purpose: Allows server admins to audit configuration changes via their configured audit log channel.</p>
+        </div>
+
+        <div class="border-t border-white/10 pt-5">
+          <h3 class="text-lg font-semibold text-white mb-3">Patreon Supporters</h3>
+          <ul class="text-white/70 space-y-2 list-none">
+            <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span> Serializd usernames of Patreon supporters, along with the date they were added, displayed via the /patreon command as a thank-you list</li>
+          </ul>
+          <p class="text-white/50 text-sm mt-2">Purpose: Acknowledging supporters publicly. Only added by the bot owner, and only the Serializd username is stored - no payment details or Discord IDs.</p>
         </div>
 
         <div class="border-t border-white/10 pt-5">
@@ -212,7 +222,7 @@ body.light-mode .animated-bg{opacity:.3}
       <ul class="text-white/70 space-y-3 list-none">
         <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span> Message content or conversation history from your Discord server.</li>
         <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span> Passwords, authentication tokens, or any credentials.</li>
-        <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span> Private Serializd account data — only publicly visible diary entries are accessed.</li>
+        <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span> Private Serializd account data - only publicly visible diary entries are accessed.</li>
         <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span> IP addresses or device information.</li>
         <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span> Payment or financial data of any kind.</li>
         <li class="flex items-start gap-2"><span class="text-[#14e8e8] mt-1">▸</span> Email addresses.</li>
@@ -241,12 +251,12 @@ body.light-mode .animated-bg{opacity:.3}
           <p class="text-white/70 text-sm leading-relaxed">All standard Discord bot communication is performed through Discord's official API in accordance with <a href="https://discord.com/privacy" target="_blank" class="text-[#14e8e8] hover:underline">Discord's Privacy Policy</a>.</p>
         </div>
         <div class="bg-white/5 rounded-xl p-5 border border-white/10">
-          <h3 class="font-semibold text-white mb-2">Top.gg (Optional)</h3>
-          <p class="text-white/70 text-sm leading-relaxed">If configured, the total number of servers the Bot is in is periodically reported to Top.gg for the Bot's public listing. No user or server-specific data is sent — only a guild count.</p>
+          <h3 class="font-semibold text-white mb-2">Top.gg</h3>
+          <p class="text-white/70 text-sm leading-relaxed">The total number of servers the Bot is in is periodically reported to Top.gg to keep the Bot's public listing up to date. No user or server-specific data is sent - only a guild count.</p>
         </div>
         <div class="bg-white/5 rounded-xl p-5 border border-white/10">
-          <h3 class="font-semibold text-white mb-2">Owner Webhook Logging (Internal)</h3>
-          <p class="text-white/70 text-sm leading-relaxed">Certain operational events are sent to a webhook and gives: guild joins/removals (including server name and member count), user additions/removals, API errors, and rate limit warnings. This is used solely for operational monitoring and is not shared with third parties.</p>
+          <h3 class="font-semibold text-white mb-2">Developer Monitoring</h3>
+          <p class="text-white/70 text-sm leading-relaxed">To keep the Bot running smoothly, the developer receives automated alerts for things like servers joining or leaving, API errors, and rate limit warnings. These include basic info such as server name and member count. This data is used only for operational health checks and is never shared with anyone.</p>
         </div>
       </div>
     </div>
@@ -259,31 +269,45 @@ body.light-mode .animated-bg{opacity:.3}
       </div>
       <div class="space-y-4">
         <div class="flex items-start gap-4 bg-white/5 rounded-xl p-4 border border-white/10">
+          <span class="text-[#14e8e8] text-xl mt-0.5">7</span>
+          <div>
+            <p class="text-white font-semibold">Days - Failed Post Retry Buffer</p>
+            <p class="text-white/70 text-sm">Diary entries and episode announcements that couldn't be delivered are held for up to 7 days while the bot retries, then automatically deleted.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4 bg-white/5 rounded-xl p-4 border border-white/10">
           <span class="text-[#14e8e8] text-xl mt-0.5">14</span>
           <div>
-            <p class="text-white font-semibold">Days — Seen Entries</p>
+            <p class="text-white font-semibold">Days - Seen Entries</p>
             <p class="text-white/70 text-sm">Diary entry IDs used for duplicate detection are purged after 14 days.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4 bg-white/5 rounded-xl p-4 border border-white/10">
+          <span class="text-[#14e8e8] text-xl mt-0.5">30</span>
+          <div>
+            <p class="text-white font-semibold">Days - Watching List Data</p>
+            <p class="text-white/70 text-sm">Show data from your server's watching list is cleaned up 30 days after a show is removed from the list.</p>
           </div>
         </div>
         <div class="flex items-start gap-4 bg-white/5 rounded-xl p-4 border border-white/10">
           <span class="text-[#14e8e8] text-xl mt-0.5">90</span>
           <div>
-            <p class="text-white font-semibold">Days — Entry Statistics</p>
-            <p class="text-white/70 text-sm">Aggregated per-entry stats used for the <code class="px-1 py-0.5 bg-white/10 rounded text-xs">/stats</code> command are automatically deleted after 90 days.</p>
+            <p class="text-white font-semibold">Days - Entry Statistics, Audit Logs, Aired Episode Records &amp; TVMaze Cache</p>
+            <p class="text-white/70 text-sm">Aggregated per-entry stats, settings audit log entries, announced episode records, and TVMaze show metadata are all automatically deleted after 90 days of age (or inactivity, in the case of the TVMaze cache).</p>
           </div>
         </div>
         <div class="flex items-start gap-4 bg-white/5 rounded-xl p-4 border border-white/10">
           <span class="text-[#14e8e8] text-xl mt-0.5">48h</span>
           <div>
-            <p class="text-white font-semibold">Hours — After Bot Removal</p>
+            <p class="text-white font-semibold">Hours - After Bot Removal</p>
             <p class="text-white/70 text-sm">All data associated with a server (tracked usernames, settings, stats, share links, watching lists, audit logs, etc.) is permanently and automatically deleted 48 hours after the Bot is removed from that server.</p>
           </div>
         </div>
         <div class="flex items-start gap-4 bg-white/5 rounded-xl p-4 border border-white/10">
           <span class="text-[#14e8e8] text-xl mt-0.5">∞</span>
           <div>
-            <p class="text-white font-semibold">Indefinite — While Bot is Active</p>
-            <p class="text-white/70 text-sm">Guild configuration, role settings, share links, user preferences, and TVMaze cache are kept for as long as the Bot remains in your server.</p>
+            <p class="text-white font-semibold">Indefinite - While Bot is Active</p>
+            <p class="text-white/70 text-sm">Guild configuration, role settings, share links, user preferences, and command usage statistics are kept for as long as the Bot remains in your server.</p>
           </div>
         </div>
       </div>
@@ -326,7 +350,7 @@ body.light-mode .animated-bg{opacity:.3}
           <p class="text-white/70 text-sm">Sets your personal timezone preference. You can remove this preference by contacting support.</p>
         </div>
       </div>
-      <p class="text-white/70 leading-relaxed mt-5">To request complete deletion of all data for your server, remove the Bot — all data will be purged within 48 hours. For individual data deletion requests or any other privacy concern, contact us via our support server.</p>
+      <p class="text-white/70 leading-relaxed mt-5">To request complete deletion of all data for your server, simply remove the Bot - all data will be purged within 48 hours. For individual data deletion requests or any other privacy concern, contact us via our support server.</p>
     </div>
 
     <!-- Global stats -->
@@ -335,7 +359,7 @@ body.light-mode .animated-bg{opacity:.3}
         <div class="w-10 h-10 gradient-bg rounded-lg flex items-center justify-center text-xl flex-shrink-0">📊</div>
         <h2 class="text-2xl font-bold">Global Statistics &amp; Leaderboards</h2>
       </div>
-      <p class="text-white/70 leading-relaxed">The <code class="px-1 py-0.5 bg-white/10 rounded text-sm">/stats</code> command can display global leaderboards showing the top 20 most-active watchers, servers, and trending shows across all servers using the Bot. By default, server names are included in these rankings. You can opt your server out entirely using <code class="px-1 py-0.5 bg-white/10 rounded text-sm">/setanonymous</code>. Individual Serializd usernames that appear in leaderboards reflect publicly available activity data.</p>
+      <p class="text-white/70 leading-relaxed">The /stats command can display global leaderboards showing the top 20 most-active watchers, servers, and trending shows across all servers using the Bot. By default, server names are included in these rankings. You can opt your server out entirely using /setanonymous. Individual Serializd usernames that appear in leaderboards reflect publicly available activity data.</p>
     </div>
 
     <!-- Security -->
