@@ -393,10 +393,11 @@ const commandsData = {
   browsing_community: { icon: "🔍", title: "Browsing, Stats & Community", commands: [
     {name: "/profile", description: "Browse a Serializd user's profile with interactive navigation (recently logged, watching, watchlist, etc.)", permission: "All"},
     {name: "/stats", description: "View server stats and global leaderboards with Top 20 watchers, servers, and trending shows", permission: "All"},
-    {name: "/sharelink", description: "Post a social profile card linking your Serializd, Letterboxd, Spotify, and other accounts", permission: "All"},
-    {name: "/editsharelink", description: "Update your existing sharelink card with new platforms or changed usernames", permission: "All"},
-    {name: "/clearsharelink", description: "Remove a user's sharelink card from the server", permission: "Admin"},
+    {name: "/sharelink add", description: "Submit your social profile links to the server's sharelink channel", permission: "All"},
+    {name: "/sharelink edit", description: "Update your existing sharelink embed with new platforms or changed usernames", permission: "All"},
+    {name: "/sharelink clear", description: "Remove a user's sharelink card from the server", permission: "Admin"},
     {name: "/upcoming", description: "View upcoming episodes for shows on this server's watching list", permission: "All"},
+    {name: "/recap", description: "Browse the last 5 weekly and monthly recaps for this server", permission: "All"},
     {name: "/serializd", description: "Learn about Serializd - the TV tracking platform this bot is built around", permission: "All"}
   ]},
   permissions: { icon: "🔒", title: "Roles & Permissions", commands: [
@@ -407,7 +408,9 @@ const commandsData = {
   user_preferences: { icon: "🕐", title: "User Preferences", commands: [
     {name: "/timezone set", description: "Set your personal timezone for timestamps in bot responses", permission: "All"},
     {name: "/timezone guild", description: "Set this server's default timezone for members who haven't set their own", permission: "Admin"},
-    {name: "/timezone view", description: "View your current timezone and this server's default", permission: "All"}
+    {name: "/timezone view", description: "View your current timezone and this server's default", permission: "All"},
+    {name: "/opt-out", description: "Remove yourself from diary tracking and block future re-adds in this server", permission: "All"},
+    {name: "/opt-in", description: "Allow the bot to track you again in this server", permission: "All"}
   ]},
   info: { icon: "❓", title: "Information & Status", commands: [
     {name: "/help", description: "Get help with the bot", permission: "All"},
